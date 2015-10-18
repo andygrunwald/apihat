@@ -27,6 +27,7 @@ class SpecificIdentityAPI(Resource):
         REST command:
             GET	    http://[hostname]/v1.0/identity/[uuid]      Retrieve an identity
         """
+        # Sortinghat action
         s_args = get_parsed_sortinghat_args()
         cmd = Show(user=s_args.user, password=s_args.password, database=s_args.database, host=s_args.host, port=s_args.port)
         code = cmd.show(uuid, None)
@@ -36,7 +37,7 @@ class SpecificIdentityAPI(Resource):
             v = cmd.get_error_vars()
             abort(404, message=v)
 
-        # If everything was going well
+        # If everything went well
         v = cmd.get_display_vars()
         identity = v['uidentities'][0]
 
