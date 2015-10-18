@@ -80,3 +80,23 @@ def read_config_file(filepath):
         return dict(config.items('db'))
     else:
         return {}
+
+"""
+Global args
+We store the parsed arguments of the configuration file
+in a global way here to avoid I/O (reading the configuration file)
+at every request.
+
+At the moment i don`t know how to inject args into a Flask Restful Resource
+(without the use of another Flas extension (flash-inject).
+"""
+args = ""
+
+
+def set_parsed_args(parsed_args):
+    global args
+    args = parsed_args
+
+
+def get_parsed_args():
+    return args
