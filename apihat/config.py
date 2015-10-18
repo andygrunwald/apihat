@@ -93,10 +93,10 @@ At the moment i don`t know how to inject args into a Flask Restful Resource
 args = ""
 
 
-def set_parsed_args(parsed_args):
+def set_parsed_sortinghat_args(parsed_args):
     global args
     args = parsed_args
 
 
-def get_parsed_args():
+def get_parsed_sortinghat_args():
     return args
