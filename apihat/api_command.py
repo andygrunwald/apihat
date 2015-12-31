@@ -27,6 +27,9 @@ class ApiCommand(Command):
                 -> ApiCommand(Command)
                     -> Add(ApiCommand)
     """
+    _error_vars = ""
+    _warning_vars = ""
+    _display_vars = []
 
     def display(self, template, **kwargs):
         """

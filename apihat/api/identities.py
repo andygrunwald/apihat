@@ -1,6 +1,8 @@
 from flask_restful import Resource, abort, reqparse
 from apihat.config import get_parsed_sortinghat_args
 from sortinghat.matching import SORTINGHAT_IDENTITIES_MATCHERS
+from sortinghat.exceptions import CODE_MATCHER_NOT_SUPPORTED_ERROR, CODE_ALREADY_EXISTS_ERROR, CODE_NOT_FOUND_ERROR, CODE_VALUE_ERROR
+from httplib import CREATED, CONFLICT, BAD_REQUEST
 
 '''
 In the next few lines we get a little bit tricky.
@@ -61,12 +63,12 @@ class IdentitiesAPI(Resource):
         """
         # Request arguments
         parser = reqparse.RequestParser()
-        parser.add_argument('name', type=str, default=None, location='form')
-        parser.add_argument('email', type=str, default=None, location='form')
-        parser.add_argument('username', type=str, default=None, location='form')
-        parser.add_argument('uuid', type=str, default=None, location='form')
-        parser.add_argument('source', type=str, default='unknown', location='form')
-        parser.add_argument('matching', type=str, default=None, location='form', choices=SORTINGHAT_IDENTITIES_MATCHERS)
+        parser.add_argument('name', default=None, location='form')
+        parser.add_argument('email', default=None, location='form')
+        parser.add_argument('username', default=None, location='form')
+        parser.add_argument('uuid', default=None, location='form')
+        parser.add_argument('source', default='unknown', location='form')
+        parser.add_argument('matching', default=None, location='form', choices=SORTINGHAT_IDENTITIES_MATCHERS)
         args = parser.parse_args()
 
         # Sortinghat action
@@ -82,11 +84,25 @@ class IdentitiesAPI(Resource):
             interactive=False
         )
 
-        # In failure case
-        if code == SortinghatCommand.CMD_FAILURE:
-            v = cmd.get_error_vars()
+        v = cmd.get_error_vars()
+        # In failure case: Wrong matcher supplied
+        if code == CODE_MATCHER_NOT_SUPPORTED_ERROR:
+            abort(BAD_REQUEST, message=v)
+
+        # In failure case: Identity already exists
+        if code == CODE_ALREADY_EXISTS_ERROR:
+            abort(CONFLICT, message=v)
+
+        # In failure case:
+        if code == CODE_NOT_FOUND_ERROR:
+            # TODO Get correct error code
+            abort(400, message=v)
+
+        # In failure case:
+        if code == CODE_VALUE_ERROR:
+            # TODO Get correct error code
             abort(400, message=v)
 
         # If everything went well
         v = cmd.get_display_vars()
-        return {"id": v['id'], "uuid": v['uuid']}, 201
+        return {"id": v['id'], "uuid": v['uuid']}, CREATED
