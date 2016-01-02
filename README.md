@@ -81,9 +81,9 @@ Example response:
 * sortinghat command: `add`
 * Possible response codes:
 	* 201 Created: Everything went well and the identity was created
-	* 400 Bad Request: Matcher not supported
+	* 400 Bad Request: Matcher not supported / Source is empty / All parameters are empty
+	* 404 Not Found: UUID not found in registry
 	* 409 Conflict: Identity already exists
-	* TODO
 
 Example call:
 

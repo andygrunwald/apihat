@@ -2,7 +2,7 @@ from flask_restful import Resource, abort, reqparse
 from apihat.config import get_parsed_sortinghat_args
 from sortinghat.matching import SORTINGHAT_IDENTITIES_MATCHERS
 from sortinghat.exceptions import CODE_MATCHER_NOT_SUPPORTED_ERROR, CODE_ALREADY_EXISTS_ERROR, CODE_NOT_FOUND_ERROR, CODE_VALUE_ERROR
-from httplib import CREATED, CONFLICT, BAD_REQUEST
+from httplib import CREATED, CONFLICT, BAD_REQUEST, NOT_FOUND
 
 '''
 In the next few lines we get a little bit tricky.
@@ -29,7 +29,7 @@ class IdentitiesAPI(Resource):
             show        Show information about a unique identity
 
         REST command:
-            GET	    http://[hostname]v1.0/identities      Retrieve identities
+            GET	        http://[hostname]/identities      Retrieve identities
         """
         # Request arguments
         parser = reqparse.RequestParser()
@@ -58,7 +58,7 @@ class IdentitiesAPI(Resource):
             add         Add identities
 
         REST command:
-            POST	    http://[hostname]v1.0/identities      Add identities
+            POST	    http://[hostname]/identities      Add identities
         """
         # Request arguments
         parser = reqparse.RequestParser()
@@ -92,15 +92,13 @@ class IdentitiesAPI(Resource):
         if code == CODE_ALREADY_EXISTS_ERROR:
             abort(CONFLICT, message=v)
 
-        # In failure case:
+        # In failure case: When the unique identity associated to the given 'uuid' is not in the registry.
         if code == CODE_NOT_FOUND_ERROR:
-            # TODO Get correct error code
-            abort(400, message=v)
+            abort(NOT_FOUND, message=v)
 
-        # In failure case:
+        # In failure case: When source is None or empty; each one of the parameters is None; parameters are empty.
         if code == CODE_VALUE_ERROR:
-            # TODO Get correct error code
-            abort(400, message=v)
+            abort(BAD_REQUEST, message=v)
 
         # If everything went well
         v = cmd.get_display_vars()
