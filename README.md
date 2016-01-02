@@ -30,7 +30,11 @@ $ docker run -d -p 5000:5000 andygrunwald/apihat
 
 #### Retrieve identities
 
-Method: GET
+* Method: GET
+* sortinghat command: `show`
+* Possible response codes:
+	* 200 OK: Everything went well
+	* 404 Not Found: TODO
 
 Example call:
 
@@ -67,22 +71,39 @@ Example response:
             "uuid": "01b98cd2fdd2a2802e3168c5b54bfc50ff384fe5"
         },
         ...
+    ]
+}
 ```
-
-Possible response codes:
-
-* 200 OK
-* 404 Not Found
 
 #### Add an identity
 
-TODO
+* Method: POST
+* sortinghat command: `add`
+* Possible response codes:
+	* 201 Created: Everything went well and the identity was created
+	* 400 Bad Request: Matcher not supported
+	* 409 Conflict: Identity already exists
+	* TODO
+
+Example call:
+
+```bash
+$ curl -X POST -d 'username=maxwell&email=max@example.com&source=scm' http://apihat:5000/identities
+```
+
+Example response:
+
+```javascript
+{
+    "id": "7fcf59c00ee2ece02824adb48d65edcaae755e17",
+    "uuid": "7fcf59c00ee2ece02824adb48d65edcaae755e17"
+}
+```
 
 ## TODO List
 
 * TravisCI
 * Native installation chapter
-* Endpoint chapter
 * License
 * Contribution-Chapter
 * Docker database
