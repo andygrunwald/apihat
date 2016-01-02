@@ -50,8 +50,7 @@ class IdentitiesAPI(Resource):
         v = cmd.get_display_vars()
         identities = [i.to_dict() for i in v['uidentities']]
 
-        # TODO: Add an array as top level? Or chose a different identifier / key?
-        return {"u": identities}
+        return {"identities": identities}
 
     def post(self):
         """
