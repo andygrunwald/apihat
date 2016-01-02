@@ -42,6 +42,7 @@ class IdentitiesAPI(Resource):
         code = cmd.show(None, args.term)
 
         # In failure case
+        # TODO Switch constant if show has new error codes
         if code == SortinghatCommand.CMD_FAILURE:
             v = cmd.get_error_vars()
             abort(NOT_FOUND, message=v)

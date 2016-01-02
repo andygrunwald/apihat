@@ -1,5 +1,6 @@
 from flask_restful import Resource, abort
 from apihat.config import get_parsed_sortinghat_args
+from httplib import NOT_FOUND
 
 '''
 In the next few lines we get a little bit tricky.
@@ -25,7 +26,7 @@ class SpecificIdentityAPI(Resource):
             show        Show information about a unique identity
 
         REST command:
-            GET	    http://[hostname]/v1.0/identity/[uuid]      Retrieve an identity
+            GET	        http://[hostname]/identity/[uuid]      Retrieve an identity
         """
         # Sortinghat action
         s_args = get_parsed_sortinghat_args()
@@ -33,9 +34,10 @@ class SpecificIdentityAPI(Resource):
         code = cmd.show(uuid, None)
 
         # In failure case
+        # TODO Switch constant if show has new error codes
         if code == SortinghatCommand.CMD_FAILURE:
             v = cmd.get_error_vars()
-            abort(404, message=v)
+            abort(NOT_FOUND, message=v)
 
         # If everything went well
         v = cmd.get_display_vars()

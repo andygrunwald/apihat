@@ -34,7 +34,6 @@ $ docker run -d -p 5000:5000 andygrunwald/apihat
 * sortinghat command: `show`
 * Possible response codes:
 	* 200 OK: Everything went well
-	* 404 Not Found: TODO
 
 Example call:
 
@@ -96,6 +95,41 @@ Example response:
 ```javascript
 {
     "id": "7fcf59c00ee2ece02824adb48d65edcaae755e17",
+    "uuid": "7fcf59c00ee2ece02824adb48d65edcaae755e17"
+}
+```
+
+### /identities/<uuid>
+
+#### Retrieve a specific identity
+
+* Method: GET
+* sortinghat command: `show`
+* Possible response codes:
+	* 200 OK: Everything went well
+	* 404 Not Found: If the identity can`t be found
+
+Example call:
+
+```bash
+$ curl http://apihat:5000/identities/7fcf59c00ee2ece02824adb48d65edcaae755e17
+```
+
+Example response:
+
+```javascript
+{
+    "identities": [
+        {
+            "email": "max@example.com",
+            "id": "7fcf59c00ee2ece02824adb48d65edcaae755e17",
+            "name": null,
+            "source": "scm",
+            "username": "maxwell",
+            "uuid": "7fcf59c00ee2ece02824adb48d65edcaae755e17"
+        }
+    ],
+    "profile": null,
     "uuid": "7fcf59c00ee2ece02824adb48d65edcaae755e17"
 }
 ```
