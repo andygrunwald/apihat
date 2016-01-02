@@ -16,7 +16,7 @@ if __name__ == '__main__':
     args = parse_args()
     set_parsed_sortinghat_args(args)
 
-    api.add_resource(SpecificIdentityAPI, '/v1.0/identities/<string:uuid>', endpoint='specific_identity')
-    api.add_resource(IdentitiesAPI, '/v1.0/identities', endpoint='identities')
+    api.add_resource(SpecificIdentityAPI, '/identities/<string:uuid>', endpoint='specific_identity')
+    api.add_resource(IdentitiesAPI, '/identities', endpoint='identities')
 
     app.run(debug=True)
