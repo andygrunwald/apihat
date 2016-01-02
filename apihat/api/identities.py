@@ -44,7 +44,7 @@ class IdentitiesAPI(Resource):
         # In failure case
         if code == SortinghatCommand.CMD_FAILURE:
             v = cmd.get_error_vars()
-            abort(404, message=v)
+            abort(NOT_FOUND, message=v)
 
         # If everything went well
         v = cmd.get_display_vars()
