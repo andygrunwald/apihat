@@ -36,15 +36,10 @@ TODO: Not complete here .. no config is available ...
 * Possible response codes:
 	* 200 OK: Everything went well
 
-Example call:
+Example:
 
 ```bash
 $ curl http://apihat:5000/identities
-```
-
-Example response:
-
-```javascript
 {
     "identities": [
         {
@@ -85,15 +80,10 @@ Example response:
 	* 404 Not Found: UUID not found in registry
 	* 409 Conflict: Identity already exists
 
-Example call:
+Example:
 
 ```bash
 $ curl -X POST -d 'username=maxwell&email=max@example.com&source=scm' http://apihat:5000/identities
-```
-
-Example response:
-
-```javascript
 {
     "id": "7fcf59c00ee2ece02824adb48d65edcaae755e17",
     "uuid": "7fcf59c00ee2ece02824adb48d65edcaae755e17"
@@ -110,15 +100,10 @@ Example response:
 	* 200 OK: Everything went well
 	* 404 Not Found: If the identity can`t be found
 
-Example call:
+Example:
 
 ```bash
 $ curl http://apihat:5000/identities/7fcf59c00ee2ece02824adb48d65edcaae755e17
-```
-
-Example response:
-
-```javascript
 {
     "identities": [
         {
