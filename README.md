@@ -19,10 +19,11 @@ TODO
 The docker image is available at [Docker Hub](https://hub.docker.com/r/andygrunwald/apihat/).
 
 ```sh
-$ docker pull andygrunwald/simple-webserver
 $ docker run -d -p 5000:5000 andygrunwald/apihat
 241cb569344f3b11126a842620167......
 ```
+
+TODO: Not complete here .. no config is available ...
 
 ## Endpoints
 
@@ -132,6 +133,22 @@ Example response:
     "profile": null,
     "uuid": "7fcf59c00ee2ece02824adb48d65edcaae755e17"
 }
+```
+
+### /ping
+
+Small ping / health endpoint to check if the service is up.
+
+* Method: GET
+* sortinghat command: `show`
+* Possible response codes:
+	* 200 OK: Everything went well
+
+Example:
+
+```bash
+$ curl http://apihat:5000/ping
+pong
 ```
 
 ## TODO List

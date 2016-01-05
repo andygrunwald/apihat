@@ -7,6 +7,7 @@ from sortinghat import api
 from apihat.config import initialize_config
 from apihat.api.specific_identity import SpecificIdentityAPI
 from apihat.api.identities import IdentitiesAPI
+from apihat.api.ping import PingAPI
 
 if __name__ == '__main__':
     app = Flask(__name__)
@@ -18,5 +19,6 @@ if __name__ == '__main__':
 
     api.add_resource(SpecificIdentityAPI, '/identities/<string:uuid>', endpoint='specific_identity')
     api.add_resource(IdentitiesAPI, '/identities', endpoint='identities')
+    api.add_resource(PingAPI, '/ping', endpoint='ping')
 
     app.run(debug=True)
