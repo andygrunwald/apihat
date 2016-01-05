@@ -1,102 +1,29 @@
-import argparse
-import ConfigParser
-import os.path
+import os
 
 """
-These functions are a subset of the original configuration functionality of sortinghat.
+We don`t support the configuration file of sortinghat.
+We only support the env vars of sortinghat.
 
-Sadly we are not able to import the functions itself,
-so we have to copy part of the functionality to support their configuration.
+This make several things much more easier:
+* We don`t have I/O here.
+* We follow 12factor apps
+* We can supply env vars easy in a docker / cloud env
 
-Mainly we copied (and maybe modified / stripped down) four functions:
-    * create_config_arguments_parser
-    * parse_args
-    * create_common_arguments_parser
-    * read_config_file
-
-The original source can be found at
-https://github.com/MetricsGrimoire/sortinghat/blob/master/bin/sortinghat
-"""
-
-
-def create_config_arguments_parser():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-c', '--config', dest='config_file', help=argparse.SUPPRESS)
-
-    # Set default values
-    defaults = {
-        'config_file' : os.path.expanduser('~/.sortinghat'),
-    }
-    parser.set_defaults(**defaults)
-
-    return parser
-
-
-def parse_args():
-    # Parse first configuration file parameter
-    config_parser = create_config_arguments_parser()
-    config_args, args = config_parser.parse_known_args()
-
-    # And then, read default parameters from a configuration file
-    if config_args.config_file:
-        defaults = read_config_file(config_args.config_file)
-    else:
-        defaults = {}
-
-    # Parse common arguments using the command parser
-    parser = create_common_arguments_parser(defaults)
-
-    # Parse arguments
-    return parser.parse_args(args)
-
-
-def create_common_arguments_parser(defaults):
-    parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter)
-
-    # Options
-    group = parser.add_argument_group('General options')
-    group.add_argument('-u', '--user', dest='user', default=os.getenv('SORTINGHAT_DB_USER', 'root'),
-                       help=argparse.SUPPRESS)
-    group.add_argument('-p', '--password', dest='password', default=os.getenv('SORTINGHAT_DB_PASSWORD', ''),
-                       help=argparse.SUPPRESS)
-    group.add_argument('-d', '--database', dest=os.getenv('SORTINGHAT_DB_DATABASE', 'database'),
-                       help=argparse.SUPPRESS)
-    group.add_argument('--host', dest='host', default=os.getenv('SORTINGHAT_DB_HOST', 'localhost'),
-                       help=argparse.SUPPRESS)
-    group.add_argument('--port', dest='port', default=os.getenv('SORTINGHAT_DB_PORT', '3306'),
-                       help=argparse.SUPPRESS)
-
-    # Set default values
-    parser.set_defaults(**defaults)
-
-    return parser
-
-
-def read_config_file(filepath):
-    config = ConfigParser.SafeConfigParser()
-    config.read(filepath)
-
-    if 'db' in config.sections():
-        return dict(config.items('db'))
-    else:
-        return {}
-
-"""
-Global args
-We store the parsed arguments of the configuration file
-in a global way here to avoid I/O (reading the configuration file)
-at every request.
-
+We store the configuration in a global way here.
 At the moment i don`t know how to inject args into a Flask Restful Resource
-(without the use of another Flas extension (flash-inject).
+(without the use of another Flask extension (flash-inject).
 """
-args = ""
+args = dict()
 
 
-def set_parsed_sortinghat_args(parsed_args):
+def initialize_config():
     global args
-    args = parsed_args
+    args = dict(user=os.getenv('SORTINGHAT_DB_USER', 'root'),
+                password=os.getenv('SORTINGHAT_DB_PASSWORD', ''),
+                database=os.getenv('SORTINGHAT_DB_DATABASE', ''),
+                host=os.getenv('SORTINGHAT_DB_HOST', 'localhost'),
+                port=os.getenv('SORTINGHAT_DB_PORT', '3306'))
 
 
-def get_parsed_sortinghat_args():
+def get_config():
     return args

@@ -1,5 +1,5 @@
 from flask_restful import Resource, abort
-from apihat.config import get_parsed_sortinghat_args
+from apihat.config import get_config
 from httplib import NOT_FOUND
 
 '''
@@ -29,8 +29,8 @@ class SpecificIdentityAPI(Resource):
             GET	        http://[hostname]/identity/[uuid]      Retrieve an identity
         """
         # Sortinghat action
-        s_args = get_parsed_sortinghat_args()
-        cmd = Show(user=s_args.user, password=s_args.password, database=s_args.database, host=s_args.host, port=s_args.port)
+        c = get_config()
+        cmd = Show(user=c['user'], password=c['password'], database=c['database'], host=c['host'], port=c['port'])
         code = cmd.show(uuid, None)
 
         # In failure case
