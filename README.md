@@ -12,18 +12,25 @@ A REST(ful) API for [MetricsGrimoire/sortinghat](https://github.com/MetricsGrimo
 
 ### Native
 
-TODO
+1. Install [MetricsGrimoire/sortinghat](https://github.com/MetricsGrimoire/sortinghat)
+2. Install python dependencies: `pip install Flask flask-restful`
+3. Start the app:
+   ```
+	$ ./app.py
+	* Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+	* ...
+	```
 
 ### Docker
 
-The docker image is available at [Docker Hub](https://hub.docker.com/r/andygrunwald/apihat/).
+You can use the pre compiled docker image available from [Docker Hub](https://hub.docker.com/r/andygrunwald/apihat/).
+
+TODO: Not complete here .. no config is available ... no database available
 
 ```sh
 $ docker run -d -p 5000:5000 andygrunwald/apihat
 241cb569344f3b11126a842620167......
 ```
-
-TODO: Not complete here .. no config is available ...
 
 ## Endpoints
 
