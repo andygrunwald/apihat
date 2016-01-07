@@ -1,6 +1,6 @@
-from flask_restful import Resource, abort
-from apihat.config import get_config
 from httplib import NOT_FOUND
+
+from flask_restful import Resource, abort
 
 '''
 In the next few lines we get a little bit tricky.
@@ -11,7 +11,7 @@ to be able to use the original sortinghat source code as much as possible.
 For a detailed description have a look at the apihat.api_command class.
 '''
 import sortinghat.command as SortinghatCommand
-from apihat.api_command import ApiCommand
+from apihat.resources.api_command import ApiCommand
 
 
 SortinghatCommand.Command = ApiCommand

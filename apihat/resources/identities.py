@@ -1,7 +1,8 @@
-from flask_restful import Resource, abort, reqparse
-from sortinghat.matching import SORTINGHAT_IDENTITIES_MATCHERS
-from sortinghat.exceptions import CODE_MATCHER_NOT_SUPPORTED_ERROR, CODE_ALREADY_EXISTS_ERROR, CODE_NOT_FOUND_ERROR, CODE_VALUE_ERROR
 from httplib import CREATED, CONFLICT, BAD_REQUEST, NOT_FOUND
+
+from flask_restful import Resource, abort, reqparse
+from sortinghat.exceptions import CODE_MATCHER_NOT_SUPPORTED_ERROR, CODE_ALREADY_EXISTS_ERROR, CODE_NOT_FOUND_ERROR, CODE_VALUE_ERROR
+from sortinghat.matching import SORTINGHAT_IDENTITIES_MATCHERS
 
 '''
 In the next few lines we get a little bit tricky.
@@ -12,7 +13,7 @@ to be able to use the original sortinghat source code as much as possible.
 For a detailed description have a look at the apihat.api_command class.
 '''
 import sortinghat.command as SortinghatCommand
-from apihat.api_command import ApiCommand
+from apihat.resources.api_command import ApiCommand
 
 
 SortinghatCommand.Command = ApiCommand

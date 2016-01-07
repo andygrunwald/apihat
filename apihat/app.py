@@ -5,9 +5,9 @@ from flask import Flask
 from flask_restful import Api
 
 from sortinghat import api
-from apihat.api.specific_identity import SpecificIdentityAPI
-from apihat.api.identities import IdentitiesAPI
-from apihat.api.ping import PingAPI
+from resources.specific_identity import SpecificIdentityAPI
+from resources.identities import IdentitiesAPI
+from resources.ping import PingAPI
 
 
 def get_configuration():
