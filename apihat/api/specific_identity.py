@@ -20,6 +20,10 @@ from sortinghat.cmd.show import Show
 
 
 class SpecificIdentityAPI(Resource):
+
+    def __init__(self, **kwargs):
+        self.config = kwargs['config']
+
     def get(self, uuid):
         """
         sortinghat command:
@@ -29,7 +33,7 @@ class SpecificIdentityAPI(Resource):
             GET	        http://[hostname]/identity/[uuid]      Retrieve an identity
         """
         # Sortinghat action
-        c = get_config()
+        c = self.config
         cmd = Show(user=c['user'], password=c['password'], database=c['database'], host=c['host'], port=c['port'])
         code = cmd.show(uuid, None)
 

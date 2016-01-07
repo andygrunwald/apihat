@@ -1,5 +1,4 @@
 from flask_restful import Resource, abort, reqparse
-from apihat.config import get_config
 from sortinghat.matching import SORTINGHAT_IDENTITIES_MATCHERS
 from sortinghat.exceptions import CODE_MATCHER_NOT_SUPPORTED_ERROR, CODE_ALREADY_EXISTS_ERROR, CODE_NOT_FOUND_ERROR, CODE_VALUE_ERROR
 from httplib import CREATED, CONFLICT, BAD_REQUEST, NOT_FOUND
@@ -23,6 +22,10 @@ from sortinghat.cmd.add import Add
 
 
 class IdentitiesAPI(Resource):
+
+    def __init__(self, **kwargs):
+        self.config = kwargs['config']
+
     def get(self):
         """
         sortinghat command:
@@ -37,7 +40,7 @@ class IdentitiesAPI(Resource):
         args = parser.parse_args()
 
         # Sortinghat action
-        c = get_config()
+        c = self.config
         cmd = Show(user=c['user'], password=c['password'], database=c['database'], host=c['host'], port=c['port'])
         code = cmd.show(None, args.term)
 
@@ -72,8 +75,8 @@ class IdentitiesAPI(Resource):
         args = parser.parse_args()
 
         # Sortinghat action
-        s_args = get_parsed_sortinghat_args()
-        cmd = Add(user=s_args.user, password=s_args.password, database=s_args.database, host=s_args.host, port=s_args.port)
+        c = self.config
+        cmd = Add(user=c['user'], password=c['password'], database=c['database'], host=c['host'], port=c['port'])
         code = cmd.add(
             source=args.source,
             email=args.email,
