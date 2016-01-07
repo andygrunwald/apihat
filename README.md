@@ -164,3 +164,5 @@ pong
 * License
 * Contribution-Chapter
 * Docker database
+* http://flask-restful-cn.readthedocs.org/en/0.3.5/intermediate-usage.html#project-structure
+* http://stackoverflow.com/questions/14112336/flask-request-and-application-json-content-type
