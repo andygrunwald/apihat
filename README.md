@@ -32,6 +32,20 @@ $ docker run -d -p 5000:5000 andygrunwald/apihat
 241cb569344f3b11126a842620167......
 ```
 
+## Configuration
+
+Configuration of *apihat* is done by environment variables.
+Checkout the table below for all supported variables.
+
+| Name          | Default value | Description |
+| ------------- |---------------| ------------|
+| APIHAT_HOST   | 0.0.0.0       | IP that this API is listen to |
+| APIHAT_PORT   | 5000          | Port that this API is listen to |
+| APIHAT_DEBUG  | False         | Debug mode of apihat |
+
+To configure [sortinghat](https://github.com/MetricsGrimoire/sortinghat) (the software this api is based on) we only support their environment variables as well.
+Checkout the [README](https://github.com/MetricsGrimoire/sortinghat/blob/master/README.md) of sortinghat to get details about this.
+
 ## Endpoints
 
 ### /identities

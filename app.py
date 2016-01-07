@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import os
 from flask import Flask
 from flask_restful import Api
 
@@ -21,4 +22,6 @@ if __name__ == '__main__':
     api.add_resource(IdentitiesAPI, '/identities', endpoint='identities')
     api.add_resource(PingAPI, '/ping', endpoint='ping')
 
-    app.run(debug=True)
+    app.run(host=os.getenv('APIHAT_HOST', '0.0.0.0'),
+            port=int(os.getenv('APIHAT_PORT', 5000)),
+            debug=os.getenv('APIHAT_DEBUG', False))
