@@ -1,6 +1,6 @@
 from httplib import NOT_FOUND
-
 from flask_restful import Resource, abort
+from sortinghat.exceptions import CODE_NOT_FOUND_ERROR
 
 '''
 In the next few lines we get a little bit tricky.
@@ -38,8 +38,7 @@ class SpecificIdentityAPI(Resource):
         code = cmd.show(uuid, None)
 
         # In failure case
-        # TODO Switch constant if show has new error codes
-        if code == SortinghatCommand.CMD_FAILURE:
+        if code == CODE_NOT_FOUND_ERROR:
             v = cmd.get_error_vars()
             abort(NOT_FOUND, message=v)
 
