@@ -7,6 +7,7 @@ from flask_restful import Api
 from sortinghat import api
 from resources.specific_identity import SpecificIdentityAPI
 from resources.identities import IdentitiesAPI
+from resources.init import InitAPI
 from resources.ping import PingAPI
 
 
@@ -43,6 +44,7 @@ if __name__ == '__main__':
 
     api.add_resource(PingAPI, '/ping')
 
+    api.add_resource(InitAPI, '/init', resource_class_kwargs=kwargs)
     api.add_resource(SpecificIdentityAPI, '/identities/<string:uuid>', resource_class_kwargs=kwargs)
     api.add_resource(IdentitiesAPI, '/identities', resource_class_kwargs=kwargs)
 

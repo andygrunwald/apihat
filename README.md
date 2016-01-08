@@ -48,6 +48,27 @@ Checkout the [README](https://github.com/MetricsGrimoire/sortinghat/blob/master/
 
 ## Endpoints
 
+### /init
+
+* Method: POST
+* sortinghat command: `init`
+* Possible response codes:
+	* 201 Created: Everything went well
+	* 400 Bad Request: Name was not supplied
+	* 500 Internal Server Error: Something went wrong
+
+Example:
+
+```bash
+$ curl -X POST \
+		-H "Content-Type: application/json" \
+		-d '{"name":"registry"}' \
+		http://apihat:5000/init
+{
+    "name": "registry"
+}
+```
+
 ### /identities
 
 #### Retrieve identities
@@ -164,5 +185,4 @@ pong
 * License
 * Contribution-Chapter
 * Docker database
-* http://flask-restful-cn.readthedocs.org/en/0.3.5/intermediate-usage.html#project-structure
 * http://stackoverflow.com/questions/14112336/flask-request-and-application-json-content-type
