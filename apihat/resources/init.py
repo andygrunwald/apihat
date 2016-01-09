@@ -11,7 +11,7 @@ to be able to use the original sortinghat source code as much as possible.
 For a detailed description have a look at the apihat.api_command class.
 '''
 import sortinghat.command as SortinghatCommand
-from apihat.resources.api_command import ApiCommand
+from .api_command import ApiCommand
 
 
 SortinghatCommand.Command = ApiCommand
