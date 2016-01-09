@@ -121,6 +121,13 @@ $ curl -X GET http://apihat:5000/identities
 
 * Method: POST
 * sortinghat command: `add`
+* HTTP Body attributes:
+	* `name` (optional): Name of the identity
+	* `email` (optional): Email of the identity
+	* `username` (optional): Username of the identity
+	* `uuid` (optional): UUID to assign the identity
+	* `source` (optional): Source of the identity
+	* `matching` (optional): Matching mechanism (email (default), email-name, see sortinghat for more)
 * Possible response codes:
 	* 201 Created: Everything went well and the identity was created
 	* 400 Bad Request: Matcher not supported / Source is empty / All parameters are empty
@@ -130,7 +137,10 @@ $ curl -X GET http://apihat:5000/identities
 Example:
 
 ```bash
-$ curl -X POST -d 'username=maxwell&email=max@example.com&source=scm' http://apihat:5000/identities
+$ curl -X POST \
+		-H "Content-Type: application/json" \
+		-d '{"username":"maxwell","email":"max@example.com","source":"scm"}' \
+		http://apihat:5000/identities
 {
     "id": "7fcf59c00ee2ece02824adb48d65edcaae755e17",
     "uuid": "7fcf59c00ee2ece02824adb48d65edcaae755e17"
