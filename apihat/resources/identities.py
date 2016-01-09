@@ -62,15 +62,14 @@ class IdentitiesAPI(Resource):
         REST command:
             POST	    http://[hostname]/identities      Add identities
         """
-        # TODO rework
         # Request arguments
         parser = reqparse.RequestParser()
-        parser.add_argument('name', default=None, location='form')
-        parser.add_argument('email', default=None, location='form')
-        parser.add_argument('username', default=None, location='form')
-        parser.add_argument('uuid', default=None, location='form')
-        parser.add_argument('source', default='unknown', location='form')
-        parser.add_argument('matching', default=None, location='form', choices=SORTINGHAT_IDENTITIES_MATCHERS)
+        parser.add_argument('name', default=None, location='json')
+        parser.add_argument('email', default=None, location='json')
+        parser.add_argument('username', default=None, location='json')
+        parser.add_argument('uuid', default=None, location='json')
+        parser.add_argument('source', default='unknown', location='json')
+        parser.add_argument('matching', default=None, location='json', choices=SORTINGHAT_IDENTITIES_MATCHERS)
         args = parser.parse_args()
 
         # Sortinghat action
