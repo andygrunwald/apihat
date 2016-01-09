@@ -8,4 +8,4 @@ WORKDIR /apihat
 
 EXPOSE 5000
 
-ENTRYPOINT ["./app.py"]
+ENTRYPOINT ["./apihat/app.py"]
