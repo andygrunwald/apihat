@@ -52,6 +52,8 @@ Checkout the [README](https://github.com/MetricsGrimoire/sortinghat/blob/master/
 
 * Method: POST
 * sortinghat command: `init`
+* Arguments:
+	* `name` (required): Name of the init database
 * Possible response codes:
 	* 201 Created: Everything went well
 	* 400 Bad Request: Name was not supplied
@@ -75,13 +77,16 @@ $ curl -X POST \
 
 * Method: GET
 * sortinghat command: `show`
+* Arguments:
+	* `term` (optional): Term to filter the response identites
 * Possible response codes:
 	* 200 OK: Everything went well
+	* 404 Not Found: Term not found in database
 
 Example:
 
 ```bash
-$ curl http://apihat:5000/identities
+$ curl -X GET http://apihat:5000/identities
 {
     "identities": [
         {
