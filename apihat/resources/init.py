@@ -1,6 +1,5 @@
 from httplib import CREATED, BAD_REQUEST, INTERNAL_SERVER_ERROR
-from flask import request
-from flask_restful import Resource, abort
+from flask_restful import Resource, abort, reqparse
 from sortinghat.command import CMD_SUCCESS
 
 '''
@@ -33,14 +32,18 @@ class InitAPI(Resource):
         REST command:
             POST	    http://[hostname]/init      Create an empty registry
         """
-        req = request.get_json()
-        if "name" not in req:
+        # Request arguments
+        parser = reqparse.RequestParser()
+        parser.add_argument('name', default=None, location='json')
+        args = parser.parse_args()
+
+        if args.name is None:
             abort(BAD_REQUEST, message="Name of the database to store the registry is missing")
 
         # Sortinghat action
         c = self.config
         cmd = Init(user=c['user'], password=c['password'], database=c['database'], host=c['host'], port=c['port'])
-        code = cmd.initialize(name=req['name'])
+        code = cmd.initialize(name=args.name)
 
         # In failure case
         if code > CMD_SUCCESS:
