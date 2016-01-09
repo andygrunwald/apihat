@@ -25,12 +25,36 @@ A REST(ful) API for [MetricsGrimoire/sortinghat](https://github.com/MetricsGrimo
 
 You can use the pre compiled docker image available from [Docker Hub](https://hub.docker.com/r/andygrunwald/apihat/).
 
-TODO: Not complete here .. no config is available ... no database available
+At first we need a database. Lets use MySQL:
 
 ```sh
-$ docker run -d -p 5000:5000 andygrunwald/apihat
-241cb569344f3b11126a842620167......
+$ docker run --name mysql \
+             -e MYSQL_USER=sortinghat \
+             -e MYSQL_PASSWORD=sortinghat \
+             -e MYSQL_ROOT_PASSWORD=sortinghat \
+             -d mysql
 ```
+
+Now we start apihat with the sortinghat and apihat configuration and use the database we started a minute ago:
+
+```sh
+$ docker run -p 5000:5000 \
+             -e SORTINGHAT_DB_HOST=mysql \
+             -e SORTINGHAT_DB_USER=root \
+             -e SORTINGHAT_DB_PASSWORD= \
+             -e SORTINGHAT_DB_DATABASE=sortinghat \
+             -d andygrunwald/apihat
+```
+
+Afterwards we do a small test if the api is running (change the host `apihat` to your docker host IP):
+
+```bash
+$ curl http://apihat:5000/ping
+{"content": "pong"}
+```
+
+Congratulations! Everything up and running!
+You can now continue with [initializing a registry](#init) and [adding identities](#add-an-identity). Have fun!
 
 ## Configuration
 
