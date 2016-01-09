@@ -1,5 +1,5 @@
 from httplib import CREATED, CONFLICT, BAD_REQUEST, NOT_FOUND
-
+from flask import request
 from flask_restful import Resource, abort, reqparse
 from sortinghat.exceptions import CODE_MATCHER_NOT_SUPPORTED_ERROR, CODE_ALREADY_EXISTS_ERROR, CODE_NOT_FOUND_ERROR, CODE_VALUE_ERROR
 from sortinghat.matching import SORTINGHAT_IDENTITIES_MATCHERS
@@ -36,18 +36,15 @@ class IdentitiesAPI(Resource):
             GET	        http://[hostname]/identities      Retrieve identities
         """
         # Request arguments
-        parser = reqparse.RequestParser()
-        parser.add_argument('term', type=str, location='args')
-        args = parser.parse_args()
+        term = request.args.get('term')
 
         # Sortinghat action
         c = self.config
         cmd = Show(user=c['user'], password=c['password'], database=c['database'], host=c['host'], port=c['port'])
-        code = cmd.show(None, args.term)
+        code = cmd.show(None, term=term)
 
         # In failure case
-        # TODO Switch constant if show has new error codes
-        if code == SortinghatCommand.CMD_FAILURE:
+        if code == CODE_NOT_FOUND_ERROR:
             v = cmd.get_error_vars()
             abort(NOT_FOUND, message=v)
 
@@ -65,6 +62,7 @@ class IdentitiesAPI(Resource):
         REST command:
             POST	    http://[hostname]/identities      Add identities
         """
+        # TODO rework
         # Request arguments
         parser = reqparse.RequestParser()
         parser.add_argument('name', default=None, location='form')

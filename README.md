@@ -52,7 +52,7 @@ Checkout the [README](https://github.com/MetricsGrimoire/sortinghat/blob/master/
 
 * Method: POST
 * sortinghat command: `init`
-* Arguments:
+* HTTP Body attributes:
 	* `name` (required): Name of the init database
 * Possible response codes:
 	* 201 Created: Everything went well
@@ -77,7 +77,7 @@ $ curl -X POST \
 
 * Method: GET
 * sortinghat command: `show`
-* Arguments:
+* Query parameters:
 	* `term` (optional): Term to filter the response identites
 * Possible response codes:
 	* 200 OK: Everything went well
