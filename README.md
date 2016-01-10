@@ -6,6 +6,7 @@ A REST(ful) API for [MetricsGrimoire/sortinghat](https://github.com/MetricsGrimo
 
 * Support for sortinghat methods:
 	* `add`
+	* `init`
 	* `show`
 
 ## Installation
@@ -221,8 +222,5 @@ pong
 ## TODO List
 
 * TravisCI
-* Native installation chapter
 * License
 * Contribution-Chapter
-* Docker database
-* http://stackoverflow.com/questions/14112336/flask-request-and-application-json-content-type
