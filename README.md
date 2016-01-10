@@ -15,9 +15,10 @@ A REST(ful) API for [MetricsGrimoire/sortinghat](https://github.com/MetricsGrimo
 1. Install [MetricsGrimoire/sortinghat](https://github.com/MetricsGrimoire/sortinghat)
 2. Install python dependencies: `pip install Flask flask-restful`
 3. Start the app:
+
    ```
-	$ ./app.py
-	* Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+	$ ./apihat/app.py
+ 	* Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 	* ...
 	```
 
