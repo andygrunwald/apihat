@@ -219,8 +219,16 @@ $ curl http://apihat:5000/ping
 pong
 ```
 
+## Contribution
+
+Contribution is highly welcome.
+It doesn`t matter if you are able to modify source code, create a Pull Request, commenting issues or talk about *apihat* at the next usergroup meetup.
+Every kind of contribution is welcome here.
+
+If you are unsure about something [open a new issue](https://github.com/andygrunwald/apihat/issues/new) and ask your question there.
+The team will be happy to help.
+
 ## TODO List
 
 * TravisCI
 * License
-* Contribution-Chapter
